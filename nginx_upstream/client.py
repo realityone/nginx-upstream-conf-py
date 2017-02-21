@@ -55,11 +55,10 @@ class Client(requests.Session):
         server 180.149.132.47:80; # id=3
         ```
         """
-        upstreams = [
+        return [
             models.Server(*s.groups())
             for s in SERVER_PATTERN.finditer(upstream_content)
             ]
-        return {s.id: s for s in upstreams}
 
     def get_upstream(self, name, is_stream=False, id_=None):
         params = {
@@ -70,5 +69,4 @@ class Client(requests.Session):
         if id_ is not None:
             params['id'] = id_
 
-        result = self._result(self._get(self.base_url, params=params))
-        return self.parse_upstream(result)
+        return self.parse_upstream(self._result(self._get(self.base_url, params=params)))
