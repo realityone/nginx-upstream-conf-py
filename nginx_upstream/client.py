@@ -8,9 +8,8 @@ import requests.adapters
 
 from . import (
     DEFAULT_TIMEOUT_SECONDS, DEFAULT_USER_AGENT, NginxUpstreamError,
-    SERVER_PATTERN
+    SERVER_PATTERN, Server
 )
-from . import models
 
 
 class Client(requests.Session):
@@ -69,7 +68,7 @@ class Client(requests.Session):
         ```
         """
         return [
-            models.Server(*s.groups())
+            Server(*s.groups())
             for s in SERVER_PATTERN.finditer(upstream_content)
             ]
 

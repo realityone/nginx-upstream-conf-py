@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 from __future__ import unicode_literals
 
+import collections
 import re
 
 import requests.exceptions
@@ -12,6 +13,10 @@ DEFAULT_NUM_POOLS = 25
 DEFAULT_USER_AGENT = 'nginx-upstream-conf-python/{0}'.format(version)
 
 SERVER_PATTERN = re.compile(r'server (?P<ip_address>\d+.\d+.\d+.\d+):(?P<port>\d+); # id=(?P<id>\d+)')
+
+
+class Server(collections.namedtuple('_Server', ['ip_address', 'port', 'id'])):
+    pass
 
 
 class NginxUpstreamError(requests.exceptions.HTTPError):
