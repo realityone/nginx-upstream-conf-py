@@ -32,5 +32,5 @@ class TestParser(unittest.TestCase):
         self.assertIsNotNone(retain_servers)
 
     def test_add_server(self):
-        retain_servers = self.client.add_server('backend', '127.0.0.1:5800')
+        retain_servers = self.client.add_server('backend', '127.0.0.1:5800', backup=True)
         self.assertIsNotNone(retain_servers)

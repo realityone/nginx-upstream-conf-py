@@ -14,9 +14,9 @@ from . import (
 
 class Client(requests.Session):
     AVAILABLE_ARGS = {
-        'server', 'is_backup', 'service', 'weight', 'max_conns',
+        'server', 'backup', 'service', 'weight', 'max_conns',
         'max_fails', 'fail_timeout', 'slow_start', 'down',
-        'drain', 'up', 'route', 'is_stream',
+        'drain', 'up', 'route', 'stream',
     }
 
     def __init__(self, base_url, timeout=DEFAULT_TIMEOUT_SECONDS,
@@ -79,11 +79,11 @@ class Client(requests.Session):
 
         return {k: v for k, v in kwargs.items() if v is not None}
 
-    def get_upstream(self, name, id_=None, is_stream=False):
+    def get_upstream(self, name, id_=None, stream=False):
         params = {
             'upstream': name,
         }
-        if is_stream:
+        if stream:
             params['stream'] = ''
         if id_ is not None:
             params['id'] = id_
